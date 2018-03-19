@@ -16,7 +16,6 @@ public class WeatherSubject extends Observable {
 		return content;
 	}
 
-	
 	public void setContent(String content) {
 		this.content = content;
 		//天气情况变化,通知所有的观察者

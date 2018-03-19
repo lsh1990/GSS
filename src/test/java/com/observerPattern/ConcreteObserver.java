@@ -11,7 +11,6 @@ import java.util.Observer;
 public class ConcreteObserver implements Observer {
 	//观察者变量名称
 	private String observerName;
-
 	@Override
 	public void update(Observable o, Object arg) {
 		//推的方式

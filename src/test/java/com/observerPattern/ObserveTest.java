@@ -6,7 +6,6 @@ package com.observerPattern;
  * @date 2018年3月19日 下午10:41:07
  */
 public class ObserveTest {
-	
 	public static void main(String[] args) {
 		//创建一个天气目标对象
 		WeatherSubject weatherSubject = new WeatherSubject();
