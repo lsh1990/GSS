@@ -17,7 +17,7 @@ public class ConcreteObserver implements Observer {
 		//推的方式
 		System.out.println(observerName + "收到消息，目标推送过来的信息:" + arg);
 		//拉的方式
-		System.out.println(observerName + "收到消息，拉取的信息:" + ((WeatherSubject)o).getContent());
+//		System.out.println(observerName + "收到消息，拉取的信息:" + ((WeatherSubject)o).getContent());
 	}
 
 	public String getObserverName() {
