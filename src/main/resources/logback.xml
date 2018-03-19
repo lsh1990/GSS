@@ -1,0 +1,108 @@
+<!--
+scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。 
+  -->
+<configuration debug="true" scan="true">
+
+	<!--
+	子节点<property>：用来定义变量值，它有两个属性name和value，通过<property>定义的值会被插入到logger上下文中，可以使“${}”来使用变量。 
+	 -->
+	<property resource="system.properties" />
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+    <!-- 
+   	 子节点<appender>：负责写日志的组件，它有两个必要属性name和class。name指定appender名称，class指定appender的全限定名
+   	 ConsoleAppender 把日志输出到控制台，有以下子节点：
+   	 <encoder>：对日志进行格式化。（具体参数稍后讲解 ）
+	 <target>：字符串System.out(默认)或者System.err（区别不多说了）
+     -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender"> <!-- encoders are assigned by default the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<!--
+		RollingFileAppender：滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。有以下子节点：
+		rollingPolicy:当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名。属性class定义具体的滚动策略类class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动。有以下子节点：
+		maxFileSize:这是活动文件的大小，默认值是10MB。\
+		fileNamePattern：必要节点，包含文件名及“%d”转换符，“%d”可以包含一个java.text.SimpleDateFormat指定的时间格式，如：%d{yyyy-MM}。
+		maxHistory:可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件。假设设置每个月滚动，且<maxHistory>是6，则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是，那些为了归档而创建的目录也会被删除。　　　　　class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"： 查看当前活动文件的大小，如果超过指定大小会告知RollingFileAppender 触发当前活动文件滚动。只有一个节点:
+		append：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。
+		prudent：当为true时，不支持FixedWindowRollingPolicy。支持TimeBasedRollingPolicy，但是有两个限制，1不支持也不允许文件压缩，2不能设置file属性，必须留空。
+	-->
+	<appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--
+			filter:过滤器，执行一个过滤器会有返回个枚举值，即DENY，NEUTRAL，ACCEPT其中之一。
+			返回DENY，日志将立即被抛弃不再经过其他过滤器；返回NEUTRAL，有序列表里的下个过滤器过接着处理日志；返回ACCEPT，日志会被立即处理，不再经过剩余过滤器。
+			level:设置过滤级别
+			onMatch:用于配置符合过滤条件的操作
+			onMismatch:用于配置不符合过滤条件的操作
+		  -->
+       <filter class="ch.qos.logback.classic.filter.LevelFilter">   
+	      <level>WARN</level>   
+	      <onMatch>ACCEPT</onMatch>   
+	      <onMismatch>DENY</onMismatch>   
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+	        <fileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/wincc_warn-%d{yyyy-MM-dd}.log</fileNamePattern>  
+			<!--<maxHistory>30</maxHistory>-->
+	    </rollingPolicy> 
+	    <encoder><!-- 必须指定，否则不会往文件输出内容 -->  
+	        <pattern>%d{HH:mm:ss.SSS} %msg%n</pattern>  
+	    </encoder>  
+	    <append>false</append>  
+	    <prudent>false</prudent>   
+    </appender>
+	
+	<appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+       <!-- <File>${LOG_HOME}/wincc_debug.log</File> -->
+       <filter class="ch.qos.logback.classic.filter.LevelFilter">   
+	      <level>DEBUG</level>   
+	      <onMatch>ACCEPT</onMatch>   
+	      <onMismatch>DENY</onMismatch>   
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+	        <fileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/wincc_debug-%d{yyyy-MM-dd}.log</fileNamePattern>  
+<!-- 	        <maxHistory>30</maxHistory>   -->
+	    </rollingPolicy> 
+	    <encoder><!-- 必须指定，否则不会往文件输出内容 -->  
+	        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>  
+	    </encoder>  
+	    <append>false</append>  
+	    <prudent>false</prudent>   
+    </appender>
+    
+     
+	<appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+       <!-- <File>${LOG_HOME}/logs/wincc_info.log</File> -->
+       <filter class="ch.qos.logback.classic.filter.LevelFilter"> 
+       <!--  <evaluator> 默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator   
+        <expression>return message.contains("手动");</expression>   
+      </evaluator>    -->  
+	      <level>INFO</level>   
+	      <onMatch>ACCEPT</onMatch>   
+	      <onMismatch>DENY</onMismatch>   
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+	        <fileNamePattern>${LOG_HOME}/%d{yyyy-MM-dd}/wincc_info-%d{yyyy-MM-dd}.log</fileNamePattern>  
+<!-- 	        <maxHistory>30</maxHistory>   -->
+	    </rollingPolicy> 
+	    <encoder><!-- 必须指定，否则不会往文件输出内容 -->  
+	        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>  
+	    </encoder>  
+	    <append>false</append>  
+	    <prudent>false</prudent>   
+    </appender>
+    
+    
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="warn" />
+        <appender-ref ref="debug" />
+        <appender-ref ref="info" />
+    </root>
+</configuration>
