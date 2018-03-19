@@ -1,4 +1,4 @@
-package com.observerPattern;
+package com.observerPattern01;
 
 /**
  * @Description: 观察者测试类
