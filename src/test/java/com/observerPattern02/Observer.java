@@ -22,5 +22,5 @@ public interface Observer {
 	/**
 	 * @Description: 获取观察者名称
 	 */
-	public void getObserverName();
+	public String getObserverName();
 }

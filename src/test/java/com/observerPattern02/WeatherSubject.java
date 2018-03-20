@@ -2,7 +2,6 @@ package com.observerPattern02;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 /**
  * @Description: 区别对待观察者模式

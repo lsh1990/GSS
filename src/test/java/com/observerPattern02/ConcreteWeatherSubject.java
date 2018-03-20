@@ -1,6 +1,5 @@
 package com.observerPattern02;
 
-import java.util.Observer;
 
 /**
  * @Description: 具体目标对象
@@ -15,7 +14,21 @@ public class ConcreteWeatherSubject extends WeatherSubject {
 	protected void notifyObservers() {
 		//循环所有观察者
 		for (Observer observer : obs) {
-			
+			switch (weatherContent) {
+			case "下雨":
+				if ("老婆".equals(observer.getObserverName())) {
+					observer.update(this);
+				}
+				if ("老公".equals(observer.getObserverName())) {
+					observer.update(this);
+				}
+				break;
+			case "下雪":
+				if ("老婆".equals(observer.getObserverName())) {
+					observer.update(this);
+				}
+				break;
+			}
 		}
 	}
 
