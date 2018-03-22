@@ -7,6 +7,7 @@ package com.thread;
  * @date 2018年3月18日 下午6:08:23
  */
 public class ThreadExtend extends Thread{
+	
 	private int ticketsCount = 5;//5张火车票
 	private String name;//线程名称
 	
