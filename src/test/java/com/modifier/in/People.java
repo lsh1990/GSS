@@ -3,7 +3,7 @@ package com.modifier.in;
 public class People {
 	
 	private String name;
-	String age;
+	static String age;
 	
 	//不加任何修饰符，本类和同包可见
 	 String getName() {
@@ -21,5 +21,8 @@ public class People {
 		this.age = age;
 	}
 	
+	protected static void add() {
+		
+	}
 	
 }
