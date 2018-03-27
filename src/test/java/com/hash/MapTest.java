@@ -1,8 +1,10 @@
-package com.map;
+package com.hash;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
+
+import com.jayway.jsonpath.internal.function.text.Concatenate;
 
 /**
  * @Description: map的区别
@@ -42,8 +44,28 @@ public class MapTest {
 		HashSet<Object> hashSet = new HashSet<>();
 		/************测试4*****************/
 		//set集合内部也是通过map实现的
-		hashSet.add(11);
-		hashSet.add(11);
+//		hashSet.add(11);
+//		hashSet.add(11);
+//		System.out.println(hashSet.size());
+		
+		/************测试5*****************/
+		//模拟内存泄露
+		Company c1 = new Company("张三", "2");
+		Company c2 = new Company("张六", "2");
+		Company c3 = new Company("王六", "2");
+		
+		hashSet.add(c1);
+		hashSet.add(c2);
+		hashSet.add(c3);
+		
+		//不重写hashCode,可以移除
+		//重写不能移除
+		c1.setAge("王五");
+		hashSet.remove(c1);
+//		hashSet.remove(c2);
+		
 		System.out.println(hashSet.size());
+		System.out.println(c1.equals(c2));
+		
 	}
 }
