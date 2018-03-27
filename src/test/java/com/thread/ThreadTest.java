@@ -37,6 +37,26 @@ public class ThreadTest {
 //		t1.start();
 //		t2.start();
 //		t3.start();
+		
+		
+		Thread thread = new Thread() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+			}
+		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
