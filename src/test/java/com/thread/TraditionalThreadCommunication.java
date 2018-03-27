@@ -76,7 +76,6 @@ class Business {
 		Thread father = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				0
 				while (!mark) {
 					try {
 						this.wait();
