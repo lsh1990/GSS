@@ -15,20 +15,20 @@ public class TraditionalThreadCommunication {
 	}
 	
 	private void init() {
-		Business business = new Business();
-		Thread thread = new Thread(new Runnable() {
+		
+	final Business business = new Business();
+		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
+				
 				for (int i = 0; i < 50; i++) {
 					business.son();
 					
 				}
 				
 			}
-		});
-		
-		thread.start();
+		}).start();
 		
 		for (int i = 0; i < 50; i++) {
 			business.main();
@@ -49,8 +49,8 @@ class Business {
 	//1.创建两个线程，分别执行自己的动作互不印象
 	
 	public synchronized void son() {
-		Thread sonThread = new Thread(new Runnable() {
-			
+		
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (mark) {
@@ -68,12 +68,11 @@ class Business {
 				mark = true;
 				this.notify();
 			}
-		});
-		sonThread.start();
+		}).start();
 	}
 	
 	public synchronized void main() {
-		Thread father = new Thread(new Runnable() {
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while (!mark) {
@@ -90,8 +89,7 @@ class Business {
 				this.notify();
 				
 			}
-		});
-		father.start();
+		}).start();
 	}
-	
+
 }

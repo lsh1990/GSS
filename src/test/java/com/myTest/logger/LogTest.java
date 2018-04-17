@@ -1,4 +1,4 @@
-package com.logger;
+package com.myTest.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
