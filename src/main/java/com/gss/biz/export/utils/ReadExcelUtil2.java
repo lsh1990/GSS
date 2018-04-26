@@ -10,12 +10,14 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.gss.biz.export.model.InfoModel;
+import com.gss.biz.export.model.RunningPackage;
 import com.gss.uitls.DBCPUtils;
 
 
@@ -30,7 +32,7 @@ public class ReadExcelUtil2 {
 	
 	public static void main(String[] args) {
 		
-		String filePath = "F:\\\\测试 - 副本.xlsx";
+		String filePath = "F:\\未打印清单及状态20180410.xlsx";
 		readExcel(filePath,"");
 	}
 	
@@ -51,7 +53,7 @@ public class ReadExcelUtil2 {
 	        	XSSFWorkbook wookbook = new XSSFWorkbook(new FileInputStream(filePath));
 	            // 在Excel文档中，第一张工作表的缺省索引是0
 	 
-	            XSSFSheet sheet = wookbook.getSheetAt(0);
+	            XSSFSheet sheet = wookbook.getSheetAt(1);
 	 
 	            // 获取到Excel文件中的所有行数
 	            int rows = sheet.getPhysicalNumberOfRows();
@@ -62,6 +64,7 @@ public class ReadExcelUtil2 {
 	            Connection conn = dataSource.getConnection();
 	            // 获取最长的列，在实践中发现如果列中间有空值的话，那么读到空值的地方就停止了。所以我们需要取得最长的列。<br data-filtered="filtered">　　　　　　　　　　　　　　//如果每个列正好都有一个空值得话，通过这种方式获得的列长会比真实的列要少一列。所以我自己会在将要倒入数据库中的EXCEL表加一个表头<br data-filtered="filtered">　　　　　　　　　　　　　　//防止列少了，而插入数据库中报错。
 	            for (int i = 0; i < rows; i++) {
+	            	 DataSource dataSource2 = DBCPUtils.getDataSource();
 	                XSSFRow row = sheet.getRow(i);
 	                if (row != null) {
 	                    int cells = row.getPhysicalNumberOfCells();
@@ -95,18 +98,26 @@ public class ReadExcelUtil2 {
 							XSSFCell cell2 = row.getCell(2);
 							if ("待查验".equals(String.valueOf(cell2))) {
 								
-								QueryRunner qr = new QueryRunner(DBCPUtils.getDataSource());
+							QueryRunner qr = new QueryRunner(DBCPUtils.getDataSource());
+								
+						 	//2:执行sql语句 
+					    	String sql = "SELECT * from running_package WHERE barcode = ? ";
+					    	Object[] params = {barcode};
+					        //选择结果集对象 
+					    	RunningPackage sort = qr.query(sql, new BeanHandler<RunningPackage>(RunningPackage.class), params);
+					        //3:查看结果
+					    	
+//					        System.out.println(sort.toString());
 								
 								
-								
-								
-//								if (model.getCreateTime() != null && model.getPassType() != null) {
-//									System.out.println("查询有结果:" + barcode);
-//									row.createCell(3);
-//									row.createCell(4);
-//									row.getCell(3).setCellValue(model.getCreateTime());
-//									row.getCell(4).setCellValue(model.getPassType());
-//								}
+//								if (sort != null && sort.getCreateTime() != null && sort.getSortParcelsFlag() != null) {
+								if (sort != null ) {
+									System.out.println("查询有结果:" + barcode);
+									row.createCell(3);
+									row.createCell(4);
+									row.getCell(3).setCellValue(sort.getHeight());
+									row.getCell(4).setCellValue(sort.getId());
+								}
 							}
 						}
 						
