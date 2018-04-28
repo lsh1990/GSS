@@ -16,7 +16,7 @@ public class CyclicBarrierTest {
 		
 		
 		ExecutorService pool = Executors.newFixedThreadPool(2);
-		pool.submit(new Thread(new Runner(barrier, "小姚明")));
+		pool.submit(new Thread(new Runner(barrier, "大姚明")));
 		pool.submit(new Thread(new Runner(barrier, "周星驰")));
 		pool.shutdown();
 		
