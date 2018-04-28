@@ -14,6 +14,7 @@ public class CyclicBarrierTest {
 		
 		CyclicBarrier barrier = new CyclicBarrier(3);
 		
+		
 		ExecutorService pool = Executors.newFixedThreadPool(2);
 		pool.submit(new Thread(new Runner(barrier, "姚明")));
 		pool.submit(new Thread(new Runner(barrier, "周星驰")));
