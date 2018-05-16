@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.SimpleMessageConverter;
 
 import com.gss.uitls.Constant.DataTransmitter;
 import com.gss.uitls.TransmitterPropertyConfigs.ActiveMQConfig;
@@ -37,10 +38,20 @@ public class SpringActiveMQContext {
 		return null;
 	}
 	
+	/**
+	 * @Description: jms模板用于发送信息
+	 * @return 
+	 */
+	@Bean(name = "activemqJmsTemplate")
 	public JmsTemplate activemqJmsTemplate() {
 		if (StringUtils.equalsIgnoreCase(CommonConfig.TRANS_SRC, DataTransmitter.ACTIVEMQ)) {
 			JmsTemplate jmsTemplate = new JmsTemplate(activeMqConnectionFactory());
-			
+			//非pub/sub模型（发布/订阅），即队列模式
+        	jmsTemplate.setPubSubDomain(false);
+        	//指定目的地
+        	jmsTemplate.setDefaultDestinationName(ActiveMQConfig.RECEIPT_QUEUE);
+        	//
+        	jmsTemplate.setMessageConverter(new SimpleMessageConverter());
 		}
 		return null;
 	}

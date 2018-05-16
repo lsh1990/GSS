@@ -23,13 +23,13 @@ public class LockTest {
 				
 				@Override
 				public void run() {
-					try {
-						while (true) {
-							queue.get();
-						}
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						while (true) {
+//							queue.get();
+//						}
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
 				}
 			}).start();
 		}
@@ -39,14 +39,14 @@ public class LockTest {
 				
 				@Override
 				public void run() {
-					try {
-						while (true) {
-							queue.put(String.valueOf(Math.random()));
-						}
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//					try {
+//						while (true) {
+//							queue.put(String.valueOf(Math.random()));
+//						}
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 				}
 			}).start();
 		}
