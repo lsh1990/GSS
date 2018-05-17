@@ -1,4 +1,4 @@
-package com.gss.biz.export.utils;
+package com.gss.biz.utils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,8 +16,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.gss.biz.export.model.InfoModel;
-import com.gss.biz.export.model.RunningPackage;
+import com.gss.biz.model.InfoModel;
+import com.gss.biz.model.RunningPackage;
 import com.gss.uitls.DBCPUtils;
 
 

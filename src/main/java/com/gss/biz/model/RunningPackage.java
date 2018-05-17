@@ -1,4 +1,4 @@
-package com.gss.biz.export.model;
+package com.gss.biz.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
