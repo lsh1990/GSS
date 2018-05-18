@@ -15,12 +15,15 @@ import com.serotonin.modbus4j.ModbusSlaveSet;
 import com.serotonin.modbus4j.ProcessImage;
 import com.serotonin.modbus4j.ProcessImageListener;
 import com.serotonin.modbus4j.code.DataType;
+import com.serotonin.modbus4j.code.RegisterRange;
 import com.serotonin.modbus4j.exception.ErrorResponseException;
 import com.serotonin.modbus4j.exception.IllegalDataAddressException;
 import com.serotonin.modbus4j.exception.ModbusInitException;
 import com.serotonin.modbus4j.exception.ModbusTransportException;
 import com.serotonin.modbus4j.ip.IpParameters;
 import com.serotonin.modbus4j.locator.BaseLocator;
+import com.serotonin.modbus4j.locator.NumericLocator;
+import com.serotonin.modbus4j.locator.StringLocator;
 import com.serotonin.modbus4j.msg.ReadCoilsRequest;
 import com.serotonin.modbus4j.msg.ReadCoilsResponse;
 import com.serotonin.modbus4j.msg.ReadDiscreteInputsRequest;
@@ -49,9 +52,9 @@ public class MasterTest {
     public static void main(String[] args) throws Exception {
     	
     		//TCP传输方式
-//    		ModbusMaster master = getTcpMaster();
+    		ModbusMaster master = getTcpMaster();
     		//RTU传输方式
-        	ModbusMaster master = getRtuMaster();
+//        	ModbusMaster master = getRtuMaster();
         	//ASCII传输模式
 //        	ModbusMaster master = getAsiiMaster();
 //       	ModbusMaster master = modbusFactory.createUdpMaster(ipParameters);
@@ -112,7 +115,7 @@ public class MasterTest {
 		       writeValue(master);
 		    //异常
 //		       readExceptionStatusTest(master, slaveId);
-
+            setChar(master);
         }
         finally {
             master.destroy();
@@ -138,18 +141,39 @@ public class MasterTest {
 		//测试高低位0x12345678
 //		BaseLocator<Number> hr1 = BaseLocator.holdingRegister(1, 0, DataType.FOUR_BYTE_INT_UNSIGNED);
 //		BaseLocator<Number> hr1 = BaseLocator.holdingRegister(1, 0, DataType.FOUR_BYTE_INT_UNSIGNED_SWAPPED);
-		BaseLocator<Number> hr1 = BaseLocator.inputRegister(1, 0, DataType.FOUR_BYTE_INT_UNSIGNED_SWAPPED);
+//		BaseLocator<Number> hr1 = BaseLocator.inputRegister(1, 0, DataType.FOUR_BYTE_INT_UNSIGNED_SWAPPED);
 //		BaseLocator<Number> hr2 = BaseLocator.holdingRegister(1, 0, DataType.TWO_BYTE_INT_UNSIGNED);
 		//测试浮点数
 //		BaseLocator<Number> hr2 = BaseLocator.holdingRegister(1, 0, DataType.FOUR_BYTE_INT_UNSIGNED);
 //		master.setValue(hr2, 0x3F800000);
 		
-		 master.setValue(hr1, 0x12345678);
+//		 master.setValue(hr1, 0x12345678);
 		 
 		
 	}
 
-       
+	public static void setChar(ModbusMaster master) {
+//		BaseLocator<Number> hr1 = BaseLocator.holdingRegister(1, 0, DataType.TWO_BYTE_INT_UNSIGNED);
+//		NumericLocator nl = new NumericLocator(1, RegisterRange.HOLDING_REGISTER, 5, DataType.TWO_BYTE_INT_UNSIGNED);
+		
+		StringLocator sl = new StringLocator(1, RegisterRange.HOLDING_REGISTER, 0, DataType.CHAR, 3);
+		try {
+			master.setValue(sl, "123456789k");
+			
+			
+			
+			
+			System.out.println("写入成功");
+			
+//			master.setValue(nl, 1555);
+//			BatchRead<Number> batch = new BatchRead<Number>();
+//		 	batch.addLocator(3, BaseLocator.holdingRegister(1, 0, DataType.CHAR));
+//		 	 BatchResults<Number> results = master.send(batch);
+//			 System.out.println("批量读取1:--" + results.getValue(1));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * @Description: 批量读取    可以批量读取不同寄存器中数据
@@ -183,12 +207,12 @@ public class MasterTest {
 //		   	batch.addLocator(4.1, BaseLocator.inputRegisterBit(slaveId, 0, 0));
 		   	
 		   	//高低字节颠倒
-		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_INT_UNSIGNED_SWAPPED));
+//		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_INT_UNSIGNED_SWAPPED));
 		   	//高低字节不颠倒
 //		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_INT_UNSIGNED));
 		   	//读取浮点数
 //		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_FLOAT));
-			 BatchResults<Number> results = master.send(batch);
+//			 BatchResults<Number> results = master.send(batch);
 //			 System.out.println("批量读取1:--" + results.getValue(1));
 //			 System.out.println("批量读取2:--" + results.getValue(2));
 //			 System.out.println("批量读取3:--" + results.getValue(3));
@@ -197,7 +221,7 @@ public class MasterTest {
 //			 System.out.println("批量读取4:--" + results.getValue(4));
 //			 System.out.println("批量读取4.1:--" + results.getValue(4.1));
 			 //高低字节颠倒
-			 System.out.println(Long.toHexString((long) results.getValue(1)));
+//			 System.out.println(Long.toHexString((long) results.getValue(1)));
 			 
 			 
 	}
@@ -714,4 +738,7 @@ public class MasterTest {
 		char[] charArray = a.toCharArray();
 		System.err.println(Arrays.toString(charArray));
 	}
+	
+
+	
 }
