@@ -1,7 +1,9 @@
 package com.gss.uitls;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
+import com.interClass.classDemo1;
 import com.yunkou.common.util.ResourceBundleUtil;
 
 /**
@@ -41,5 +43,62 @@ public class Constant {
     	public static final String IBMMQ = "ibmmq";
     	public static final String NJSDK = "njsdk";
 	}
+	
+	
+	
+	
+
+	/**
+	 * The extension separator character.
+	 */
+	public static final String XML_FILE_POSTFIX_SEPARATOR = ".xml";
+	/**
+	 * The extension separator character.
+	 */
+	public static final String JSON_FILE_POSTFIX_SEPARATOR = ".json";
+	
+	
+	/**
+	 * @Description: 文件符号
+	 * @author-lsh
+	 * @date 2018年5月24日 上午7:23:59
+	 */
+	public static class FileSymbol {
+		
+		public static final String EXTENSION_SEPARATOR = ".";
+		
+		public static final char UNIX_SEPARATOR = '/';
+		/**
+		 * 文件名连接符号
+		 */
+		public static final char LINK_SEPARATOR = '_';
+
+		public static final char WINDOWS_SEPARATOR = '\\';
+		/**
+		 * 波浪分隔符
+		 */
+		public static final char TILDE_SYMBOL_SEPARATOR = '~';
+		/**
+		 * 井号分隔符
+		 */
+		public static final char POUND_SYMBOL_SEPARATOR = '#';
+		/**
+		 * 空串
+		 */
+		public static final String EMPTY_STRING = "";
+		/**
+		 * 引号
+		 */
+		public static final char QUOTATION_SYMBOL_SEPARATOR = '\'';
+		
+		public static final char SYSTEM_SEPARATOR = File.separatorChar;
+		/**
+		 * 统一字符编码
+		 */
+		public static final String CHARSET_NAME = "utf-8";
+		
+	}
+
+	
 	
 }

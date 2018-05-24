@@ -1,5 +1,7 @@
 package com.gss.uitls;
 
+import com.interClass.classDemo1;
+
 /**
  * @Description: 传输器配置
  * @author-lsh
@@ -44,6 +46,11 @@ public class TransmitterPropertyConfigs {
     	
     	//brokerURL
     	public static final String BROKER_URL = Constant.TRANSPORT_BUNDLE.getString("activemq.edi.brokerurl");
+	}
+	
+	
+	public static class FilePath { 
+	
 	}
 	
 	

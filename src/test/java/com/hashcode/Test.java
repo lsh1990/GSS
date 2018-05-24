@@ -14,10 +14,16 @@ public class Test {
 		three.setName("张三");
 		three.setAge(18);
 		
-		System.out.println(one.equals(three) ? true : false);
-		System.out.println(one.equals(two) ? true : false);
-		System.out.println(one.hashCode());
-		System.out.println(three.hashCode());
+//		System.out.println(one.equals(three) ? true : false);
+//		System.out.println(one.equals(two) ? true : false);
+//		System.out.println(one.hashCode());
+//		System.out.println(three.hashCode());
+		System.out.println(1 << 4);
+	}
+
+	private static char[] Integer(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
