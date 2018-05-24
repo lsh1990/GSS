@@ -1,7 +1,5 @@
 package com.gss.uitls;
 
-import com.interClass.classDemo1;
-
 /**
  * @Description: 传输器配置
  * @author-lsh
@@ -50,7 +48,7 @@ public class TransmitterPropertyConfigs {
 	
 	
 	public static class FilePath { 
-	
+		public static final String RECEIVE_PATH = Constant.TRANSPORT_BUNDLE.getString("local.receive.path");
 	}
 	
 	
