@@ -294,7 +294,7 @@ public class FileToolUtils {
 	 * @Description: 获取指定目录下的所有指定类型文件
 	 * @param path 文件夹地址
 	 * @param size 一次获取的文件数量
-	 * @param fileType 获取的文件类型  例:xml
+	 * @param fileType 获取的文件类型  例:xml 
 	 * @return 
 	 */
 	public static List<File> getAllDataFile(String path, int size, String fileType) {
