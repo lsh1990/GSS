@@ -1,5 +1,7 @@
 package com.gss.biz.modbus.service;
 
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +16,7 @@ import com.serotonin.modbus4j.ip.IpParameters;
  * @date 2018年5月17日 下午3:54:38
  */
 public class ModbusService {
+	
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	

@@ -12,10 +12,10 @@ public class ThreadTest {
 	
 	public static void main(String[] args) {
 		//1.测试利用继承方式实现的线程
-//		ThreadExtend t1 = new ThreadExtend("1号窗口");
+		ThreadExtend t1 = new ThreadExtend("1号窗口");
 //		ThreadExtend t2 = new ThreadExtend("2号窗口");
 //		ThreadExtend t3 = new ThreadExtend("3号窗口");
-//		t1.start();
+		t1.start();
 //		t2.start();
 //		t3.start();
 		/**
