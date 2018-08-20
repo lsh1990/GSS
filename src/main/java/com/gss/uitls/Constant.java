@@ -3,7 +3,7 @@ package com.gss.uitls;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import com.interClass.classDemo1;
+import com.basis.interClass.classDemo1;
 import com.yunkou.common.util.ResourceBundleUtil;
 
 /**
