@@ -8,7 +8,7 @@ public class ProxyTest{
 	
 	public static void main(String[] args) {
 		
-		WorkImpl workImpl = new WorkImpl();
+		final WorkImpl workImpl = new WorkImpl();
 		Work instance = (Work) Proxy.newProxyInstance(
 				WorkImpl.class.getClassLoader(), //与目标对象有相同类加载器
 				WorkImpl.class.getInterfaces(), //与目标对象有相同接口  动态生成代理对象就是接口类型
