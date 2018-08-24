@@ -10,6 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpRequestEncoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 
 /**
  * @ClassName Tomcat
@@ -39,7 +40,7 @@ public class Tomcat {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             //无锁化串行编程
                             //业务逻辑，编码器
-                            ch.pipeline().addLast(new HttpRequestEncoder());
+                            ch.pipeline().addLast(new HttpResponseEncoder());
                             //解码器
                             ch.pipeline().addLast(new HttpRequestDecoder());
                             //自定义业务
