@@ -47,8 +47,7 @@ $(document).ready(function(){
             		$("#nickname").val('');
                 $("#loginbox").hide();
                 $("#chatbox").show();
-
-                CHAT.init(nickname);
+                this.init(nickname);
             }else{
             		$('#error-msg').html("先输入昵称才能进入聊天室");
 	            return false;
@@ -204,18 +203,14 @@ $(document).ready(function(){
 			    window.WebSocket = window.MozWebSocket;
 			}
 			if (window.WebSocket) {
-				debugger;
 			    CHAT.socket = new WebSocket(CHAT.serverAddr);
 			    CHAT.socket.onmessage = function(e) {
-			    	alert(e.data);
 			    	appendToPanel(e.data);
 			    };
 			    CHAT.socket.onopen = function(e) {
-			    	alert("socket开启");
 			    	CHAT.socket.send("[LOGIN][" + new Date().getTime() +"][" + nickname + "]");
 			    };
 			    CHAT.socket.onclose = function(e) {
-                    alert("socket关闭");
 			        appendToPanel("[SYSTEM][" + new Date().getTime() + "][0] - 服务器关闭,暂不能聊天!");
 			    };
 			} else {

@@ -1,4 +1,4 @@
-package com.gss.biz.netty.chart.processor;
+package com.gss.biz.netty.chart.protocol;
 
 /**
  * @ClassName IMP
@@ -32,6 +32,12 @@ public enum IMP {
     public String toString(){
         return this.name;
     }
+
+    /**
+     * 判断传递的内容是否符合协议
+     * @param content
+     * @return
+     */
     public static boolean isIMP(String content){
         return content.matches("^\\[(SYSTEM|LOGIN|LOGIN|CHAT)\\]");
     }

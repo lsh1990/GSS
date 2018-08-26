@@ -1,5 +1,7 @@
 package com.gss.biz.netty.chart.server;
 
+import com.gss.biz.netty.chart.protocol.IMDecoder;
+import com.gss.biz.netty.chart.protocol.IMEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -39,13 +41,17 @@ public class ChartServer {
                 //启动引擎
                 ServerBootstrap serverBootstrap = new ServerBootstrap();
                 //主从模型
-                serverBootstrap.group(bossGroup, workGroup).channel(NioServerSocketChannel.class)
-                        .option(ChannelOption.SO_BACKLOG, 1024).childHandler(new ChannelInitializer<SocketChannel>() {
+                serverBootstrap.group(bossGroup, workGroup)
+                        .channel(NioServerSocketChannel.class)
+                        .option(ChannelOption.SO_BACKLOG, 1024)
+                        .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                                 ChannelPipeline pipeline = ch.pipeline();
                                 //自定义业务
-
+                                pipeline.addLast(new IMDecoder());
+                                pipeline.addLast(new IMEncoder());
+                                pipeline.addLast(new SocketHandler());
                                 //====================http================
                                 //解码和编码HTTP请求
                                 pipeline.addLast(new HttpServerCodec());
