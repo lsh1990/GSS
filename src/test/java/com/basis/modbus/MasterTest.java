@@ -153,8 +153,6 @@ public class MasterTest {
 			master.setValue(sl, "123456789k");
 			
 			
-			
-			
 			System.out.println("写入成功");
 			
 //			master.setValue(nl, 1555);
