@@ -3,16 +3,11 @@ package com.basis.modbus;
 
 import java.util.Arrays;
 
+import com.serotonin.modbus4j.*;
+import com.serotonin.modbus4j.locator.BaseLocator;
 import org.junit.Test;
 
 import com.serotonin.io.serial.SerialParameters;
-import com.serotonin.modbus4j.BasicProcessImage;
-import com.serotonin.modbus4j.BatchRead;
-import com.serotonin.modbus4j.ModbusFactory;
-import com.serotonin.modbus4j.ModbusMaster;
-import com.serotonin.modbus4j.ModbusSlaveSet;
-import com.serotonin.modbus4j.ProcessImage;
-import com.serotonin.modbus4j.ProcessImageListener;
 import com.serotonin.modbus4j.code.DataType;
 import com.serotonin.modbus4j.code.RegisterRange;
 import com.serotonin.modbus4j.exception.ErrorResponseException;
@@ -193,13 +188,13 @@ public class MasterTest {
 		   
 		   	//读取保持寄存器数据
 		   	//根据设置的数据类型读取
-//		   	batch.addLocator(3, BaseLocator.holdingRegister(slaveId, 0, DataType.TWO_BYTE_INT_UNSIGNED));
+		   	batch.addLocator(3, BaseLocator.holdingRegister(slaveId, 0, DataType.TWO_BYTE_INT_UNSIGNED));
 		   	//读取整形中16位中某一位的布尔值
 //		   	batch.addLocator(3.1, BaseLocator.holdingRegisterBit(slaveId, 0, 0));
 		   	
 		   	//读取输入寄存器数据
 		   	//根据设置的数据类型读取
-//		   	batch.addLocator(4, BaseLocator.inputRegister(slaveId, 0, DataType.TWO_BYTE_INT_UNSIGNED));
+		   	batch.addLocator(4, BaseLocator.inputRegister(slaveId, 0, DataType.TWO_BYTE_INT_UNSIGNED));
 		 	//读取整形中16位中某一位的布尔值
 //		   	batch.addLocator(4.1, BaseLocator.inputRegisterBit(slaveId, 0, 0));
 		   	
@@ -209,8 +204,8 @@ public class MasterTest {
 //		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_INT_UNSIGNED));
 		   	//读取浮点数
 //		   	batch.addLocator(1, BaseLocator.holdingRegister(slaveId, 0, DataType.FOUR_BYTE_FLOAT));
-//			 BatchResults<Number> results = master.send(batch);
-//			 System.out.println("批量读取1:--" + results.getValue(1));
+			 BatchResults<Number> results = master.send(batch);
+			 System.out.println("批量读取1:--" + results.getValue(1));
 //			 System.out.println("批量读取2:--" + results.getValue(2));
 //			 System.out.println("批量读取3:--" + results.getValue(3));
 //			 System.out.println("批量读取3.1:--" + results.getValue(3.1));
