@@ -147,7 +147,6 @@ public class MasterTest {
 	public static void setChar(ModbusMaster master) {
 //		BaseLocator<Number> hr1 = BaseLocator.holdingRegister(1, 0, DataType.TWO_BYTE_INT_UNSIGNED);
 //		NumericLocator nl = new NumericLocator(1, RegisterRange.HOLDING_REGISTER, 5, DataType.TWO_BYTE_INT_UNSIGNED);
-		
 		StringLocator sl = new StringLocator(1, RegisterRange.HOLDING_REGISTER, 0, DataType.CHAR, 3);
 		try {
 			master.setValue(sl, "123456789k");
